@@ -1,8 +1,8 @@
-# Student Gradebook Flask
+# Электронный журнал на Flask
 
-A Dockerized gradebook application built with Flask and PostgreSQL. The project contains a small web application, SQL schema scripts, stored procedures, views, and a Docker Compose setup with pgAdmin for database inspection.
+Dockerized-приложение для работы с электронным журналом. В проекте есть Flask API, PostgreSQL со схемой, seed-данными, views и stored procedures, а также pgAdmin для просмотра базы.
 
-## Tech Stack
+## Стек
 
 - Python
 - Flask
@@ -10,44 +10,41 @@ A Dockerized gradebook application built with Flask and PostgreSQL. The project 
 - pgAdmin
 - Docker Compose
 
-## Features
+## Возможности
 
-- Web interface for gradebook data
-- PostgreSQL schema initialization
-- Seed data scripts
-- Database views and stored procedures
-- Containerized local environment
+- Получение справочников групп, предметов и преподавателей
+- Просмотр студентов по группам
+- Работа с экзаменами и сессионными оценками
+- CRUD endpoints для основных сущностей
+- Инициализация БД SQL-скриптами
+- Схема базы в формате Draw.io
 
-## Run Locally
+## Запуск
 
 ```bash
 docker compose up --build
 ```
 
-Open the Flask application:
+После запуска:
+
+| Компонент | URL |
+| --- | --- |
+| Flask API | http://localhost:5000 |
+| pgAdmin | http://localhost:5050 |
+
+Демо-настройки PostgreSQL и pgAdmin находятся в `docker-compose.yml`.
+
+## Структура
 
 ```text
-http://localhost:5000
+app/               Flask-приложение
+db/                Dockerfile и SQL-скрипты БД
+docker-compose.yml локальное окружение
+schema.drawio      схема базы данных
+reqs.xsh           примеры HTTP-запросов
 ```
 
-Open pgAdmin:
+## Для портфолио
 
-```text
-http://localhost:5050
-```
-
-Default demo credentials are defined in `docker-compose.yml`.
-
-## Repository Structure
-
-```text
-app/              Flask application
-db/               PostgreSQL Docker image and SQL scripts
-docker-compose.yml
-schema.drawio     Database schema diagram
-```
-
-## Portfolio Notes
-
-This project demonstrates a simple database-backed Flask service with containerized PostgreSQL infrastructure and explicit SQL assets.
+Проект демонстрирует backend-сервис на Flask с PostgreSQL, процедурной логикой в БД и контейнеризированным окружением.
 

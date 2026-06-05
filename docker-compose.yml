@@ -1,6 +1,5 @@
 services:
   postgres:
-    container_name: postgres_container
     image: postgres
     build:
       context: ./db
@@ -35,10 +34,15 @@ services:
     restart: unless-stopped
 
   app:
-    container_name: flask_app
     build:
       context: ./app
       dockerfile: Dockerfile
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: mydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      FLASK_DEBUG: "false"
     ports:
       - "5000:5000"
     depends_on:

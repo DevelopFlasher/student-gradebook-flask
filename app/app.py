@@ -1,20 +1,28 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, jsonify, request
+import os
 import psycopg2
 
 
 
-hostname="postgres_container"
-database_name="mydb"
-port = 5432
-username="postgres"
-password="postgres"
+hostname = os.getenv("POSTGRES_HOST", "postgres")
+database_name = os.getenv("POSTGRES_DB", "mydb")
+port = int(os.getenv("POSTGRES_PORT", "5432"))
+username = os.getenv("POSTGRES_USER", "postgres")
+password = os.getenv("POSTGRES_PASSWORD", "postgres")
+debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
 def get_connection():
-    return psycopg2.connect(f"postgresql://{username}:{password}@{hostname}:{port}/{database_name}")
+    return psycopg2.connect(
+        host=hostname,
+        port=port,
+        dbname=database_name,
+        user=username,
+        password=password,
+    )
 
 
 @app.route("/groups", methods=["GET"])
@@ -269,4 +277,4 @@ def set_session_grade(session_grade_id):
     return jsonify({"result": "Session grade updated successfully"}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=debug, host='0.0.0.0', port=5000)
